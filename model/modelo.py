@@ -10,6 +10,7 @@ class Player:
         self.avatar = avatar
 
     def to_JSON_string(self):
+        #esto permite convertir el objeto en json string
         cad = json.dumps(self, default=lambda o: o.__dict__, 
             sort_keys=True)
         print(cad)

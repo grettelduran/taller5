@@ -40,6 +40,7 @@ def add_new_player():
 @app.route("/players", methods=["GET"])
 def get_all_players():
     players = controller.get_all_players()
+    #genero un arreglo de jsonstrings para la visualizacion
     return jsonify({"players": [pn.to_JSON_string() for pn in players]}), 201
 
 

@@ -22,9 +22,11 @@ class BaseDatos:
             return existing_players
     def pass_validations(self, objPlayer):
         for player in self.existing_players:
+            #valido si el usuario o el email es repetido
             if player.username == objPlayer.username or player.email == objPlayer.email:
                 print("User or Email already exists")
                 return False
+        #valido si el email tiene el formato correcto con regex
         if re.search(email_regex,objPlayer.email):  
             if re.search(r"\s", objPlayer.username):
                 print("username shouldn't have spaces")
@@ -44,6 +46,8 @@ class BaseDatos:
             separator =","
             result = "["+separator.join(playersJson)+"]"
             print(result)
+            #como al tratar de devolver un arreglo de jsons con json.dump a un archivo generaba extra comillas
+            #decidi crear una cadena del json y escribirlo como un archivo normal
             with open("existing_users.json", "w") as outfile:
                 outfile.write(result)
             return "New player added successfuly"
@@ -61,7 +65,9 @@ class BaseDatos:
         return None
     def login(self, username, password):
         tempPlayer = self.get_player_by_username(username)
+        #primero valido si existe el usuario
         if tempPlayer != None:
+            #segundo valido si el password es correcto
             if tempPlayer.password == password:
                 return "Correct credentials"
             else:
